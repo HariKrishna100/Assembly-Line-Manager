@@ -5,7 +5,7 @@
 namespace sdds {
 	struct Item
 	{
-		std::string m_itemName;
+		std::string m_itemName{};
 		size_t m_serialNumber{ 0 };
 		bool m_isFilled{ false };
 
@@ -13,11 +13,11 @@ namespace sdds {
 	};
 
    class CustomerOrder {
-		std::string m_name;
-		std::string m_product;
-		size_t m_cntItem;
-		Item** m_lstItem;
-		static size_t m_widthField;
+		std::string m_name{};
+		std::string m_product{};
+		size_t m_cntItem{};
+		Item** m_lstItem{};
+		static size_t m_widthField{};
 	public:
 		CustomerOrder() = default;
 		CustomerOrder(std::string& token);
