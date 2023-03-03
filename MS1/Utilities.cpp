@@ -2,6 +2,7 @@
 #include "Utilities.h"
 using namespace std;
 namespace sdds {
+    char Utilities::m_delimiter{};
     string whitespace = " \n\r\t\f\v";
 
     string ltrim(string& str) {
@@ -35,9 +36,9 @@ namespace sdds {
     }
 
     void Utilities::setDelimiter(char newDelimiter) {
-       m_delimiter - newDelimiter;
+       m_delimiter = newDelimiter;
     }
-
+    
     char Utilities::getDelimiter() {
        return m_delimiter;
     }

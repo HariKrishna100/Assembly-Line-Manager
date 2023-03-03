@@ -8,8 +8,8 @@
 #include "Utilities.h"
 using namespace std;
 namespace sdds{
+   Utilities ut;
    CustomerOrder::CustomerOrder(std::string& token) {
-      Utilities ut;
       size_t ps = 0;
       bool other;
 
