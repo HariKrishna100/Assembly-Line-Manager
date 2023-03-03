@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <iomanip>
 #include <algorithm>
 #include <string>
 #include "CustomerOrder.h"
@@ -62,18 +63,48 @@ namespace sdds{
    }
 
    bool CustomerOrder::isOrderFilled() const {
-      return false;
+      return std::all_of(m_lstItem, (m_lstItem + m_cntItem), [](const Item* I) {
+         return I->m_isFilled;
+      });
    }
 
    bool CustomerOrder::isItemFilled(const std::string& itemName) const {
-      return false;
+      return std::all_of(m_lstItem, (m_lstItem + m_cntItem), [&itemName](Item* I) {
+         if (I->m_itemName == itemName) return (I->m_isFilled);
+         return true;
+      });
    }
 
    void CustomerOrder::fillItem(Station& station, std::ostream& os) {
-
+      bool flag = true;
+      std::for_each(m_lstItem, (m_lstItem + m_cntItem), [&](Item* I) {
+         if (station.getItemName() == I->m_itemName && flag) {
+            if (station.getQuantity() > 0) {
+               station.updateQuantity();
+               I->m_serialNumber = station.getNextSerialNumber();
+               I->m_isFilled = true;
+               os << "    Filled " << m_name << ", " << m_product << " [" << I->m_itemName << "]" << endl;
+               flag = false;
+            }
+            else os << "    Unable to fill " << m_name << ", " << m_product << " [" << I->m_itemName << "]" << endl;
+         }
+      });
    }
 
    void CustomerOrder::display(std::ostream& os) const {
+      os << rtrim(m_name) << " - " << rtrim(m_product) << "\n";
+      std::for_each(m_lstItem, (m_lstItem + m_cntItem), [&](Item* I) {
+         os << "[" << setw(6) << setfill('0') << I->m_serialNumber << "] " << setfill(' ') << setw(CustomerOrder::m_widthField) << setiosflags(ios::left) << I->m_itemName << resetiosflags(ios::left) << " - ";
+         if (I->m_isFilled) 
+            os << "FILLED";
+         else 
+            os << "TO BE FILLED";
+         os << endl;
+      });
+   }
 
+   string rtrim(const std::string str) {
+      size_t end = str.find_last_not_of(' ');
+      return (end == string::npos) ? "" : str.substr(0, end + 1);
    }
 }
