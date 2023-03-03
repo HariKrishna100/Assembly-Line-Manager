@@ -12,14 +12,20 @@ namespace sdds{
 
       m_name = ut.extractToken(token, ps, other);
       m_product = ut.extractToken(token, ps, other);
+      m_cntItem = stoi(ut.extractToken(token, ps, other));
+
+
    }
 
    CustomerOrder::CustomerOrder(CustomerOrder&& toMove) noexcept {
-
+      operator=(move(toMove));
    }
 
    CustomerOrder& CustomerOrder::operator=(CustomerOrder&& toMove) noexcept {
-      
+      if (this != &toMove) {
+
+      }
+      return *this;
    }
 
    CustomerOrder::~CustomerOrder() {
