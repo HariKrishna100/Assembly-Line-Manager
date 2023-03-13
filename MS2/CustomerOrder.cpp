@@ -52,9 +52,9 @@ namespace sdds{
          m_lstItem = toMove.m_lstItem;
          toMove.m_lstItem = nullptr;
          m_name = toMove.m_name;
-         toMove.m_name = nullptr;
+         toMove.m_name = "";
          m_product = toMove.m_product;
-         toMove.m_product = nullptr;
+         toMove.m_product = "";
          m_cntItem = toMove.m_cntItem;
          toMove.m_cntItem = 0;
       }
@@ -98,6 +98,11 @@ namespace sdds{
       });
    }
 
+   string rtrim(const string str) {
+      size_t end = str.find_last_not_of(' ');
+      return (end == string::npos) ? "" : str.substr(0, end + 1);
+   }
+
    void CustomerOrder::display(std::ostream& os) const {
       os << rtrim(m_name) << " - " << rtrim(m_product) << "\n";
       std::for_each(m_lstItem, (m_lstItem + m_cntItem), [&](Item* I) {
@@ -108,10 +113,5 @@ namespace sdds{
             os << "TO BE FILLED";
          os << endl;
       });
-   }
-
-   string rtrim(const std::string str) {
-      size_t end = str.find_last_not_of(' ');
-      return (end == string::npos) ? "" : str.substr(0, end + 1);
    }
 }

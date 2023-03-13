@@ -28,7 +28,9 @@ namespace sdds {
 	public:
 		CustomerOrder() = default;
 		CustomerOrder(std::string& token);
-		CustomerOrder(const CustomerOrder& notToCopy) = delete;
+		CustomerOrder(const CustomerOrder& notToCopy) {
+			throw "Copying Disabled";
+		};
 		CustomerOrder& operator=(const CustomerOrder& notToCopy) = delete;
 		CustomerOrder(CustomerOrder&& toMove) noexcept;
 		CustomerOrder& operator=(CustomerOrder&& toMove) noexcept;

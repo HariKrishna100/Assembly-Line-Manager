@@ -48,7 +48,7 @@ namespace sdds {
     }
 
     void Utilities::setDelimiter(char newDelimiter) {
-       m_delimiter - newDelimiter;
+       m_delimiter = newDelimiter;
     }
 
     char Utilities::getDelimiter() {
