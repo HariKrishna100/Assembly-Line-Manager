@@ -1,7 +1,7 @@
 // Name: Harikrishna Paresh Patel
 // Seneca Student ID: 150739217
 // Seneca email: hpatel296@myseneca.ca
-// Date of completion: 09/03/2023
+// Date of completion: 13/03/2023
 //
 // I confirm that I am the only author of this file
 //   and the content was created entirely by me.
@@ -25,7 +25,7 @@ namespace sdds {
        return m_widthField;
     }
 
-    std::string Utilities::extractToken(const string& str, size_t& next_pos, bool& more) {
+    string Utilities::extractToken(const string& str, size_t& next_pos, bool& more) {
        size_t idx = (str.find(getDelimiter(), next_pos));
        string etc = str.substr(next_pos, idx - next_pos);
        etc = ltrim(etc);
