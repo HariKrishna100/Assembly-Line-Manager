@@ -16,13 +16,14 @@
 using namespace std;
 namespace sdds{
    Utilities ut;
+   size_t CustomerOrder::m_widthField = 0;
    CustomerOrder::CustomerOrder(std::string& token) {
       size_t ps = 0;
       bool other;
 
       m_name = ut.extractToken(token, ps, other);
       m_product = ut.extractToken(token, ps, other);
-      m_cntItem = stoi(ut.extractToken(token, ps, other));
+      m_cntItem = count(token.begin(), token.end(), ut.getDelimiter()) - 1;
 
       std::vector<Item*> itemList;
       do {
@@ -64,9 +65,9 @@ namespace sdds{
    CustomerOrder::~CustomerOrder() {
       for (unsigned i = 0; i < m_cntItem; i++) {
          delete m_lstItem[i];
-         m_lstItem[i] = nullptr;
       }
       delete[] m_lstItem;
+      m_lstItem = nullptr;
    }
 
    bool CustomerOrder::isOrderFilled() const {
@@ -98,19 +99,11 @@ namespace sdds{
       });
    }
 
-   string rtrim(const string str) {
-      size_t end = str.find_last_not_of(' ');
-      return (end == string::npos) ? "" : str.substr(0, end + 1);
-   }
-
    void CustomerOrder::display(std::ostream& os) const {
-      os << rtrim(m_name) << " - " << rtrim(m_product) << "\n";
+      os << ut.rtrim(m_name) << " - " << ut.rtrim(m_product) << "\n";
       std::for_each(m_lstItem, (m_lstItem + m_cntItem), [&](Item* I) {
-         os << "[" << setw(6) << setfill('0') << I->m_serialNumber << "] " << setfill(' ') << setw(CustomerOrder::m_widthField) << setiosflags(ios::left) << I->m_itemName << resetiosflags(ios::left) << " - ";
-         if (I->m_isFilled) 
-            os << "FILLED";
-         else 
-            os << "TO BE FILLED";
+         os << "[" << setw(6) << setfill('0') << I->m_serialNumber << "] " << setfill(' ') << setw(CustomerOrder::m_widthField) << setiosflags(ios::left) << I->m_itemName << resetiosflags(ios::left) << "  - ";
+         (I->m_isFilled) ? os << "FILLED" : os << "TO BE FILLED";
          os << endl;
       });
    }

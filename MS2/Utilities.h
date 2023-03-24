@@ -18,6 +18,8 @@ namespace sdds {
       std::string extractToken(const std::string& str, size_t& next_pos, bool& more);
       static void setDelimiter(char newDelimiter);
       static char getDelimiter();
+      std::string rtrim(const std::string str);
+      std::string ltrim(const std::string str);
    };
 }
 #endif // !SDDS_UTILITIES_H_

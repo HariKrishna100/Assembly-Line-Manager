@@ -12,14 +12,15 @@ namespace sdds {
     char Utilities::m_delimiter{};
     string whitespace = " \n\r\t\f\v";
 
-    string ltrim(string& str) {
-       size_t start = str.find_first_not_of(whitespace);
-       return (start == string::npos) ? "" : str.substr(start);
-    }
-
-    string rtrim(const std::string str) {
+    string Utilities::rtrim(const std::string str) {
        size_t end = str.find_last_not_of(' ');
        return (end == string::npos) ? "" : str.substr(0, end + 1);
+    }
+
+    string Utilities::ltrim(const std::string str)
+    {
+       size_t start = str.find_first_not_of(whitespace);
+       return (start == string::npos) ? "" : str.substr(start);
     }
 
     void Utilities::setFieldWidth(size_t newWidth) {

@@ -10,6 +10,7 @@
 #include <iostream>
 #include "Station.h"
 namespace sdds {
+
 	struct Item
 	{
 		std::string m_itemName{};
