@@ -74,12 +74,12 @@ namespace sdds {
       os << "Line Manager Iteration: " << count << endl;
 
       if (!g_pending.empty()) {
-         (*m_first_Station) += move(g_pending.front());
+         (*m_firstStation) += move(g_pending.front());
          g_pending.pop_front();
       }
 
       for (unsigned int i = 0; i < m_activeLine.size(); i++) {
-         m_active_Line[i]->fill(os);
+         m_activeLine[i]->fill(os);
       }
 
       for (unsigned int i = 0; i < m_activeLine.size(); i++) {
@@ -87,7 +87,7 @@ namespace sdds {
       }
 
       for (unsigned int i = 0; i < m_activeLine.size(); i++) {
-         if (!m_activeLine[i]->success()) {
+         if (!m_activeLine[i]->) {
             success = false;
             break;
          }
