@@ -67,33 +67,24 @@ namespace sdds {
    }
 
    bool LineManager::run(std::ostream& os) {
-      static int count = 0;
-      bool success = true;
-      count++;
+      static size_t counter = 1;
 
-      os << "Line Manager Iteration: " << count << endl;
+      os << "Line Manager Iteration: " << counter++ << endl;
 
       if (!g_pending.empty()) {
          (*m_firstStation) += move(g_pending.front());
          g_pending.pop_front();
       }
 
-      for (unsigned int i = 0; i < m_activeLine.size(); i++) {
-         m_activeLine[i]->fill(os);
+      for (auto station : m_activeLine) {
+         station->fill(os);
       }
 
-      for (unsigned int i = 0; i < m_activeLine.size(); i++) {
-         m_activeLine[i]->attemptToMoveOrder();
+      for (auto station : m_activeLine) {
+         station->attemptToMoveOrder();
       }
 
-      for (unsigned int i = 0; i < m_activeLine.size(); i++) {
-         if (!m_activeLine[i]->) {
-            success = false;
-            break;
-         }
-      }
-
-      return success;
+      return (g_completed.size() + g_incomplete.size()) == m_cntCustomerOrder;
    }
 
    void LineManager::display(std::ostream& os) const {
